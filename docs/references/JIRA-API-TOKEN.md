@@ -1,0 +1,7 @@
+API Token
+
+ATATT3xFfGF0RUdEXuWJYcqkBlki8lRpbAGAmw9hAm5MMWqbYUR-uKz7lpvbKhS3ckxVIvXhVRBBLqOVxMw0OUOKnPvP2gHv8_iO_1kiqWFvqM1mhS1rOr-sGl0y038HJOp_Zvv_yPnQp4u_SQd2dOFnWw2-5JnPdnem8ZD262PZogCSkrMMZcs=07875BDC
+
+export JIRA_BASE_URL="https://cupia-ict.atlassian.net"
+export JIRA_EMAIL="slipknot.yang@gmail.com"   
+export JIRA_API_TOKEN="ATATT3xFfGF0RUdEXuWJYcqkBlki8lRpbAGAmw9hAm5MMWqbYUR-uKz7lpvbKhS3ckxVIvXhVRBBLqOVxMw0OUOKnPvP2gHv8_iO_1kiqWFvqM1mhS1rOr-sGl0y038HJOp_Zvv_yPnQp4u_SQd2dOFnWw2-5JnPdnem8ZD262PZogCSkrMMZcs=07875BDC"
