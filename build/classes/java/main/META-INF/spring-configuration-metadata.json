@@ -30,8 +30,12 @@
       "name": "cupia.batch.processor.type",
       "type": "com.cupia.framework.batch.config.BatchFrameworkProperties$ProcessorType",
       "description": "Type of event processor to use (simple, batch)",
-      "sourceType": "com.cupia.framework.batch.config.BatchFrameworkProperties$Processor"
+      "sourceType": "com.cupia.framework.batch.config.BatchFrameworkProperties$Processor",
+      "defaultValue": "simple"
     }
   ],
-  "hints": []
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
 }
