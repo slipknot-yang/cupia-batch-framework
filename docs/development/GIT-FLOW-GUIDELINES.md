@@ -178,6 +178,75 @@ Brief description of changes
 - Pull Request 권장
 - CI/CD 체크 통과 필요
 
+## 🔧 현재 프로젝트 구조
+
+### 구축 완료 사항
+- **`main`**: 안정화된 릴리즈 브랜치 (프로덕션 준비)
+- **`development`**: 개발 통합 브랜치 (다음 릴리즈 준비)
+- **`.gitignore`**: 빌드 아티팩트, IDE 파일 제외 설정
+- **Git Flow 가이드라인**: 완전한 워크플로우 문서화
+
+### 개발 환경 설정
+- Spring Boot 3.5.3 (최신 안정화 버전)
+- Spring Cloud 2025.0.0 (Northfields 릴리즈)
+- Java 21 기반 라이브러리 프레임워크
+- Context7 MCP를 통한 최신 버전 관리
+
+## 🎯 앞으로의 작업 방식
+
+### 새 기능 개발
+```bash
+# development 브랜치에서 시작
+git checkout development
+git pull origin development
+
+# 새 기능 브랜치 생성 (JIRA 이슈 기반)
+git checkout -b feature/EDPF-XX-description
+
+# 개발 작업 수행
+# - 코드 구현
+# - 테스트 작성
+# - 문서 업데이트
+
+# 커밋 및 푸시
+git add .
+git commit -m "feat: implement new feature"
+git push origin feature/EDPF-XX-description
+
+# Pull Request 생성하여 development로 머지
+# GitHub에서 PR 생성 → 리뷰 → development 브랜치로 머지
+```
+
+### 릴리즈 준비
+```bash
+# development에서 release 브랜치 생성
+git checkout development
+git pull origin development
+git checkout -b release/v0.1.0
+
+# 릴리즈 준비 작업
+# - 버전 업데이트 (build.gradle)
+# - 문서 최종 점검
+# - 릴리즈 노트 작성
+
+# main과 development에 모두 머지 후 태깅
+git checkout main
+git merge --no-ff release/v0.1.0
+git tag -a v0.1.0 -m "Release version 0.1.0"
+git push origin main --tags
+
+git checkout development
+git merge --no-ff release/v0.1.0
+git push origin development
+```
+
+### 작업 계획 변경/추가 시 동기화
+모든 작업 계획이 변경되거나 추가되면 다음 순서로 동기화:
+1. **로컬 문서** 업데이트 (계획, 가이드, 로그)
+2. **Jira** 동기화 (Epic, Story, Task 생성/수정)  
+3. **GitHub** 커밋 & 푸시
+4. **다음 작업** 진행
+
 ## 🚨 주의사항
 
 1. **Main 브랜치 직접 수정 금지**
@@ -191,5 +260,9 @@ Brief description of changes
 
 4. **테스트 실패 시 머지 금지**
    - 모든 테스트 통과 후에만 머지
+
+5. **Context7 MCP 활용**
+   - 최신 버전 확인 및 공식 문서 참조
+   - 버전 업데이트 시 항상 Context7로 호환성 검증
 
 이 가이드라인을 따라 안정적이고 체계적인 개발 워크플로우를 유지합니다.
