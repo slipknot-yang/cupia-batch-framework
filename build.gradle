@@ -1,7 +1,7 @@
 plugins {
-    id 'java'
-    id 'org.springframework.boot' version '3.2.0'
-    id 'io.spring.dependency-management' version '1.1.4'
+    id 'java-library'
+    id 'maven-publish'
+    id 'io.spring.dependency-management' version '1.1.6'
 }
 
 group = 'com.cupia.framework'
@@ -24,37 +24,32 @@ repositories {
 }
 
 ext {
+    springBootVersion = '3.2.0'
     springCloudVersion = '2023.0.2'
 }
 
 dependencies {
-    // Spring Boot Starters
-    implementation 'org.springframework.boot:spring-boot-starter'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-batch'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    // Core Framework Dependencies (API - exposed to consumers)
+    api 'org.springframework.boot:spring-boot-starter'
+    api 'org.springframework.boot:spring-boot-starter-batch'
+    api 'org.springframework.boot:spring-boot-starter-data-jpa'
+    api 'org.springframework.cloud:spring-cloud-starter-stream-kafka'
+    api 'org.springframework.kafka:spring-kafka'
+    
+    // Framework Internal Dependencies (Implementation - not exposed)
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-    
-    // Spring Cloud Streams
-    implementation 'org.springframework.cloud:spring-cloud-starter-stream-kafka'
-    implementation 'org.springframework.kafka:spring-kafka'
-    
-    // JSON Processing
     implementation 'com.fasterxml.jackson.core:jackson-databind'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
     
-    // Database
-    runtimeOnly 'com.h2database:h2'
-    runtimeOnly 'org.postgresql:postgresql'
+    // Optional Dependencies (for users who want specific features)
+    compileOnly 'org.springframework.boot:spring-boot-starter-actuator'
+    compileOnly 'com.h2database:h2'
+    compileOnly 'org.postgresql:postgresql'
     
-    // Logging
-    implementation 'org.springframework.boot:spring-boot-starter-logging'
-    
-    // Configuration Processor
+    // Configuration Processing
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     
-    // Lombok
+    // Build Time Only
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     
@@ -65,15 +60,53 @@ dependencies {
     testImplementation 'org.testcontainers:junit-jupiter'
     testImplementation 'org.testcontainers:kafka'
     testImplementation 'org.testcontainers:postgresql'
+    testImplementation 'com.h2database:h2'
 }
 
 dependencyManagement {
     imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
         mavenBom "org.testcontainers:testcontainers-bom:1.19.3"
     }
 }
 
+// Java Library Configuration
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+// Publishing Configuration
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+            
+            pom {
+                name = 'CUPIA Event-Driven Batch Framework'
+                description = 'A Spring Boot framework for event-driven batch processing with Kafka integration'
+                url = 'https://github.com/slipknot-yang/cupia-batch-framework'
+                
+                developers {
+                    developer {
+                        id = 'cupia-team'
+                        name = 'CUPIA Framework Team'
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Test Configuration
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+// Jar Configuration
+jar {
+    archiveBaseName = 'cupia-batch-framework'
+    enabled = true
+    archiveClassifier = ''
 }

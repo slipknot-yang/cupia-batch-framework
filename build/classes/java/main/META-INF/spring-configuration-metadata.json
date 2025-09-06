@@ -1,0 +1,37 @@
+{
+  "groups": [
+    {
+      "name": "cupia.batch",
+      "type": "com.cupia.framework.batch.config.BatchFrameworkProperties",
+      "sourceType": "com.cupia.framework.batch.config.BatchFrameworkProperties"
+    },
+    {
+      "name": "cupia.batch.kafka",
+      "type": "com.cupia.framework.batch.config.BatchFrameworkProperties$Kafka",
+      "sourceType": "com.cupia.framework.batch.config.BatchFrameworkProperties",
+      "sourceMethod": "getKafka()"
+    },
+    {
+      "name": "cupia.batch.processor",
+      "type": "com.cupia.framework.batch.config.BatchFrameworkProperties$Processor",
+      "sourceType": "com.cupia.framework.batch.config.BatchFrameworkProperties",
+      "sourceMethod": "getProcessor()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "cupia.batch.kafka.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable Kafka integration",
+      "sourceType": "com.cupia.framework.batch.config.BatchFrameworkProperties$Kafka",
+      "defaultValue": true
+    },
+    {
+      "name": "cupia.batch.processor.type",
+      "type": "com.cupia.framework.batch.config.BatchFrameworkProperties$ProcessorType",
+      "description": "Type of event processor to use (simple, batch)",
+      "sourceType": "com.cupia.framework.batch.config.BatchFrameworkProperties$Processor"
+    }
+  ],
+  "hints": []
+}
