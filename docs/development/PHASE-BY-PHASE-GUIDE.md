@@ -117,6 +117,55 @@
 
 ---
 
+## Phase 5: Transactional Outbox Pattern 적용
+
+### Sprint 9-10 목표
+**Jira Epic**: `[EDPF-E5]` 메시지 발행 신뢰성 보장
+**Sprint Goal**: 업무 로직과 메시지 발행의 원자성 보장
+
+#### 주요 Story
+1. **`[EDPF-40]` Outbox 테이블 및 엔티티 구현**
+   - **AC**: 아웃박스 테이블 생성 및 JPA 엔티티 구현 완료
+   - **Tasks**:
+     - `outbox_events` 테이블 DDL 작성
+     - `OutboxEvent` JPA 엔티티 구현
+     - `OutboxEventRepository` 구현
+
+2. **`[EDPF-41]` EventProcessor 아웃박스 통합**
+   - **AC**: 업무 로직과 아웃박스 이벤트가 동일 트랜잭션에서 처리
+   - **Tasks**:
+     - `OutboxEventService` 구현
+     - `SimpleEventProcessor`에 아웃박스 패턴 적용
+     - 트랜잭션 테스트 구현
+
+3. **`[EDPF-42]` 아웃박스 릴레이 메커니즘 구현**
+   - **AC**: PENDING 상태 이벤트를 Kafka로 안전하게 발행
+   - **Tasks**:
+     - `OutboxEventRelay` 스케줄러 구현
+     - Kafka 프로듀서 통합
+     - 상태 관리 및 재시도 로직
+
+4. **`[EDPF-43]` 에러 처리 및 모니터링**
+   - **AC**: 실패 이벤트 재처리 및 모니터링 가능
+   - **Tasks**:
+     - 지수 백오프 재시도 구현
+     - Dead Letter Queue 구현
+     - 메트릭 수집 및 알림 시스템
+
+### 완료 기준
+- [ ] 데이터베이스 장애 시에도 메시지 손실 없음 검증
+- [ ] Kafka 장애 복구 후 미발행 메시지 자동 처리 확인
+- [ ] 성능 테스트: 기존 대비 5% 이내 성능 저하
+- [ ] 아웃박스 테이블 모니터링 대시보드 구축
+
+### Phase 5 산출물
+- `OutboxEvent` 엔티티 및 리포지토리
+- `OutboxEventService`, `OutboxEventRelay` 서비스
+- 아웃박스 패턴 설정 및 활성화 옵션
+- 신뢰성 테스트 시나리오 및 결과 보고서
+
+---
+
 ## 각 Phase 공통 작업
 
 ### 문서화 의무사항
