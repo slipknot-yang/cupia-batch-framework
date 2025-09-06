@@ -14,6 +14,9 @@
 ### Phase 4: 프레임워크화 (Sprint 7-8)
 **목표**: 배포 가능한 Starter 모듈 및 문서 완성
 
+### Phase 5: Transactional Outbox Pattern 적용 (Sprint 9-10)
+**목표**: 업무 로직과 메시지 발행의 원자성 보장
+
 ---
 
 ## Phase 1: 기반 구조 구축
